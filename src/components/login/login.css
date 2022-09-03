@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400&display=swap');
+
+.login-section{
+    text-align: center;
+background: url("shopping3.jpg") no-repeat ;
+background-size: cover;
+min-height: 100vh;
+height: auto;
+/* filter: sepia(80%); */
+font-family:'League Spartan', sans-serif;
+font-weight: 400;
+}
+
+
+.login-card{
+    width: 500px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75) !important;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    margin-top: 10%;
+}
+.login-form{
+    background-color: rgba(221, 221, 221, 0)!important;
+font-size: 24px !important;
+    /* width:auto; */
+    color: #fff !important;
+    margin-bottom: 15px;
+    margin-top: 30px;
+  
+    
+}
+
+
+
+.google{
+    background-color: #fff !important;
+    color:black !important;
+    font-size: 20px !important;
+    /* border: 2px solid rgba(0, 85, 255, 0.684); */
+}
+.login-form::placeholder{
+    color: #fff !important;
+    /* text-decoration: solid; */
+    opacity: 0.85 !important;
+    outline: none !important;
+
+    
+}
+input{
+    /* margin-top: 30px; */
+}
+
+
+.btn-grp{
+    margin-top: 3rem;
+    font-size: 23px;
+}
+hr {
+    margin: 1rem 1rem !important;
+    color: white !important;;
+    background-color: currentColor;
+    border: 0;
+    opacity: 1 !important;
+    width: 50%;
+}
+.or{
+    color: #fff;
+    margin: 0px 0px;
+}
+.input-group-text{
+   margin-top: 30px;
+   margin-bottom: 15px;
+    padding: 1rem 0.75rem !important;
+    background-color: #6b72fe00 !important;
+    
+}
+
+.fa-eye{
+    color: #fff;
+}
+.fa-eye-slash{
+    color: #fff;
+}
+.content{
+    width: 100%;
+}
+#fb-in-btn{
+    /* background-color: 		#4267B2 !important; */
+    margin: 10px 0 !important;
+}
+
+#fb-in-btn img{
+    width: 30px;
+}
+
+@media (max-width : 500px){
+    .login-section{
+        min-height: 150vh;
+    }
+}
