@@ -1,0 +1,15 @@
+.mobile-chart{
+    display: none;
+}
+.apexcharts-legend-text{
+    font-size: 18px!important;
+}
+
+@media (max-width :650px){
+    .mobile-chart{
+        display: block;
+    }
+    .desktop-chart{
+        display: none !important;
+    }
+}

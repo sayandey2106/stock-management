@@ -5,11 +5,12 @@ import DrawerOptions from "../../components/router/drawer";
 
 import { handleDrawerToggle} from "../../actions/loginActions";
 import Drawer from "../../components/router/drawer";
+import DrawerAppBar from "../../components/router/drawer";
 export class Drawer_option_con extends Component {
 
   render() {
     return (
-      <Drawer {...this.props} />
+      <DrawerAppBar {...this.props} />
     );
   }
 };

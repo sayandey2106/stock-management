@@ -17,6 +17,8 @@ import AdminSignupCont from "../../containers/signup/adminSignupCont";
 // import ForgotPassword from "../login/forgotPassword";
 import ForgotPassword from "../login/forgotPassword";
 import Userlist from "../userlist/Userlist";
+import { HomeCont } from "../../containers/home/homeCont";
+import Products from "../products/Products";
 
 class Routes extends Component {
 
@@ -60,7 +62,7 @@ class Routes extends Component {
                     <main
                         style={{
                             flexGrow: 1,
-                            marginTop: 140
+                            marginTop: 10
                         }}>
 
                         {/* <Route exact path="/login" component={Login} /> */}
@@ -70,9 +72,9 @@ class Routes extends Component {
                         {/* <Route exact path="/dashboard" component={AdminDashboardCont}/> */}
                         <Route exact path="/change-password" component={ForgotPassword}/>
                         {/* <Route exact path="/" component={Users}/> */}
-                        <Route exact path="/" component={Userlist}/>
+                        <Route exact path="/" component={HomeCont}/>
                         {/* <Route exact path="/signup" component={SignupCont}/> */}
-                        <Route exact path="/edit-profile" component={EditProfileCont}/> 
+                        <Route exact path="/products" component={Products}/> 
 
                         {/* <Route path="/" component={Controller_con}/> */}
 
@@ -95,7 +97,7 @@ class Routes extends Component {
                     <main
                         style={{
                             flexGrow: 1,
-                            marginTop: 20
+                            marginTop: 10
                         }}
                     >
                         {/* <Route exact path="/login" component={Login} /> */}
