@@ -6,15 +6,15 @@ import Signup from "../../components/signup/signup";
 
 import {
   createName,
-  createCaste,
-  createCollege,
+createType,
   createEmail,
-  createGender,
+createSkills,
   createPassword,
   createPhone,
   createProfilePic,
-  createSkills,
-  createType,
+  createCaste,
+  createCollege,
+createGender,
   sign_up,get_profile_pic_link
  } from "../../actions/signup/signupAction";
 
@@ -73,8 +73,8 @@ sign_up:(signup) =>{
   createSkills: (payload) =>{
     dispatch(createSkills(payload))
   },
-  get_profile_pic_link:(file, name) =>{
-    dispatch(get_profile_pic_link(file, name))
+  get_profile_pic_link:(file,name,signup) =>{
+    dispatch(get_profile_pic_link(file,name,signup))
   },
   };
 };

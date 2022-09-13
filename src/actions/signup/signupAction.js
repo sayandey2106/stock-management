@@ -16,7 +16,7 @@ import {
     ADMIN_CREATE_PHONE,
     ADMIN_CREATE_PROFILE_PIC
    } from "../../constants/signup/signupConstants";
-  
+   import moment from "moment";
    import firebase from "firebase";
    
 import UNIVERSAL from "../../config/config";
@@ -24,6 +24,7 @@ import { Redirect } from "react-router-dom";
 import { storage } from "../../constants/ActionTypes";
 import { setLoader, unsetLoader }
     from "../loader/loaderAction";
+import { AUTH } from "../../constants/authConst";
 
    export function createEmail(payload) {
     return {
@@ -87,50 +88,52 @@ export function createType(payload) {
     };
 }
 
-export function sign_up(signup) {
+export function sign_up(signup, url) {
 
     // const signUpObj = {signup }
+    let conId =  Math.random().toString(36).slice(2);
+    let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
     console.warn(signup);
     return (dispatch) => {
         dispatch(setLoader());
-        return fetch(UNIVERSAL.BASEURL + "api/Sauth/signup", {
+        return fetch(UNIVERSAL.BASEURL + "users", {
             method: "POST",
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
+                // "Accept": "application/json",
+                // "Content-Type": "application/json",
+                "origin":"http://localhost:3000",
+                "content-type":"application/json",
+                'requested-timestamp':date_create,
+                "conversation-id":conId
                 // user_token: token,
                 // organization_id: oid
                 // company_id:id
             },
-            body: JSON.stringify(signup),
+            body: JSON.stringify({
+                userFullName:signup.userFullName,
+                userEmail:signup.userEmail,
+                userPassword:signup.userPassword,
+                userPhoneNo:signup.userPhoneNo,
+                userPhotoIdUrl:url
+                // userFullName:"ss",
+                // userEmail:"ss@g.com",
+                // userPassword:"abcd@123",
+                // userPhoneNo:"1121123212",
+                // userPhotoIdUrl:"https://pngtree.com/freepng/vector-users-icon_4144740.html"
+            }),
            
-                // email :signup.email,
-                // password : signup.password,
-                // type: signup.type,
-                // college_name:signup.college,
-                //  name:signup.name,
-                //   gender:signup.gender,
-                //  caste:signup.caste
-
-                // email:"sa@gmail.com",
-                // password: "abcd123",
-                // phone_no:"9876543210",
-                // type:"S",
-                // college_name:"abcd",
-                // name:"sayan",
-                // gender:"m",
-                // caste:"a"
-                // signup: signup
+          
 
         
              
         }).then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson.error)
-                if (responseJson.status) {
+                if (responseJson.status===200) {
 
-                    console.log("successfully signed up");
-                    alert("Sign Up Successful")
+                    // console.log("successfully signed up");
+                    alert(responseJson.message)
+                    // Registration Successful!!
                     // dispatch(setLogin(responseJson))
                
                     //     dispatch(view_profile(responseJson.authToken));
@@ -139,7 +142,7 @@ export function sign_up(signup) {
                 } else {
                     
                     // dispatch(set_snack_bar(true, responseJson.message));
-                    console.log(responseJson.error,"error is");
+                   alert(responseJson.message);
                 }
                 dispatch(unsetLoader())
             })
@@ -190,14 +193,14 @@ export function createProfilePicAdmin(payload) {
 }
 
 
-export function get_profile_pic_link(file,name) {
+export function get_profile_pic_link(file,name,signup) {
     console.log(file,name)
     return (dispatch) => {
         dispatch(setLoader());
       {
             var storageRef = firebase.storage().ref();
             var uploadTask = storageRef
-                .child("/Quiz/profilepic/student/" + name + ".png")
+                .child("/idProof/" + name + ".png")
                 .put(file);
             uploadTask.on(
                 "state_changed",
@@ -205,15 +208,15 @@ export function get_profile_pic_link(file,name) {
                 },
                 function (error) {
                     // dispatch(set_snack_bar(true, "Image Could Not Be sUploaded"));
-                    alert("Image Could Not Be sUploaded")
+                    // alert("Image Could Not Be sUploaded")
                     dispatch(unsetLoader());
                 },
                 function () {
                     uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                        alert("Image sUploaded")
+                        console.log("Image sUploaded")
                         dispatch(createProfilePic( downloadURL));
                         dispatch(unsetLoader());
-
+                        dispatch(sign_up(signup,downloadURL))
                     });
                 }
             );
@@ -261,5 +264,12 @@ export function sign_up_admin(signup) {
             .catch((error) => {
                 console.error(error);
             });
+    };
+}
+
+export function setAuth(payload){
+    return {
+        type: AUTH,
+        payload: payload
     };
 }

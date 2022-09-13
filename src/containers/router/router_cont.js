@@ -6,6 +6,7 @@ import Routes from "../../components/router/router";
 //import { setAffiliates,setEmail, setPhone, setdescription,resetAffiliates,AffiliatesFunc} from "../../actions/affiliates/affiliates_action";
 
 import {  onLogout } from "../../actions/loginActions";
+import { setAuth } from "../../actions/signup/signupAction";
 
 export class Routes_con extends Component {
 
@@ -19,6 +20,7 @@ export class Routes_con extends Component {
 export const mapStateToProps = store => {
   return {
    login: store.login,
+   auth:store.auth
    
   };
 };
@@ -28,6 +30,9 @@ export const mapDispatchToProps = dispatch => {
       onLogout: () => {
         dispatch(onLogout());
       },
+      setAuth :(payload)=>{
+        dispatch(setAuth(payload))
+      }
     };
   };
 

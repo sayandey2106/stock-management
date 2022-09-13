@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Userlist.css';
 import { Button } from '@mui/material';
 import Table from '@mui/material/Table';
@@ -14,7 +14,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+// import { setAuth } from '../../actions/signup/signupAction';
 import Piecharts from '../piecharts/piecharts';
+import { useHistory } from 'react-router-dom';
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
@@ -31,7 +33,15 @@ function createData(name, calories, fat, carbs, protein) {
 
   //toggle button
 
-export default function Userlist() {
+export default function Userlist(props) {
+  const history = useHistory();
+  useEffect(() => {
+  if(!(localStorage.getItem('lp_auth_token'))){
+    history.push('/login');
+  }
+  }, [])
+  const{set_home, setAuth}= props;
+  // console.log("props are" , props)
   return (
     <div className='container'>
   <TableContainer component={Paper} style={{margin:"auto"}}>

@@ -9,10 +9,12 @@ import {
   SET_HOME,
   CLEAR_LOGIN,
   OPEN_LOGIN_MODAL,
+  SET_USERNAME,
   CLOSE_LOGIN_MODAL
 } from "../constants/ActionTypes";
 const initial_state = {
   email: "",
+  username:"",
   isHome: true,
   token: "",
   name: "",
@@ -20,7 +22,7 @@ const initial_state = {
   // password: "",
   // confirmpassword: "",
   // newpassword: "",
-  type: "S",
+  type: "",
   // isRegistered: false,
   // response_received: false,
   // isPasswordchange: false,
@@ -40,17 +42,19 @@ export default function reducer(state = initial_state, action) {
       return state = { ...state, password: action.payload };
     case SET_NAME:
       return state = { ...state, name: action.payload };
+    case SET_USERNAME:
+      return state = { ...state, username: action.payload };
     case CLEAR_LOGIN:
       return state = { ...state, email: "", password: "" };
     case LOGIN:
       return state = {
         ...state,
         isHome: false,
-        type: action.payload.type,
+        type: action.payload.result.role,
         // token: action.payload.user_token,
-        name: action.payload.name,
+        name: action.payload.result.fullName,
         // profile_img: action.payload.profile_pic,
-        user_id: action.payload.authToken,
+        user_id: action.payload.result.id,
         // company_id: action.payload.company_id,
         // organization_id: action.payload.organization_id
       };

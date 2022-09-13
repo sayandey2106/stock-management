@@ -14,6 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import Lg_Cont, { LG_Cont } from '../../containers/router/Lg_Cont';
 
 const drawerWidth = 240;
 const navItems = [{
@@ -43,7 +44,9 @@ function DrawerAppBar(props) {
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
+      <LG_Cont/>
       <Divider />
+      
       <List>
         {navItems.map((item) => (
           <Link to={item.path} style={{textDecoration:"none"}}>
@@ -54,6 +57,7 @@ function DrawerAppBar(props) {
           </ListItem>
           </Link>
         ))}
+      
       </List>
     </Box>
   );

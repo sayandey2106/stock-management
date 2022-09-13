@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Button,ButtonGroup } from '@mui/material'
 import { Container,Box } from '@mui/system'
 import Table from '@mui/material/Table';
@@ -17,6 +17,10 @@ import Typography from '@mui/material/Typography';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton';
+import Quality from './Quality';
+import Types from './Types';
+import { LG_Cont } from '../../containers/router/Lg_Cont';
+import { useHistory } from 'react-router-dom';
 function createData(name, type, quality, cp, sp ) {
     return { name, type, quality, cp, sp };
   }
@@ -30,14 +34,27 @@ function createData(name, type, quality, cp, sp ) {
   ];
   
 export default function Products() {
+  const history = useHistory();
+  useEffect(() => {
+  if(!(localStorage.getItem('lp_auth_token'))){
+    history.push('/login');
+  }
+  }, [])
+  
   return (
     <div>
-        <Container>
+      <div  className="my-4">
 
+<Quality/>
+      </div>
+      <div  className="my-4">
+<Types/>
+      </div>
+        <Container className="my-4">
+<LG_Cont/>
       <Box>
 
   <Button variant="contained" className='m-1'> Create New Type</Button>
-  <Button variant="contained" className='m-1'>Create New Quality</Button>
   <Button variant="contained" className='m-1'>Add Product</Button>
 
       </Box>
@@ -80,6 +97,7 @@ export default function Products() {
       </Table>
     </TableContainer>
         </Container>
+        
     </div>
   )
 }

@@ -7,11 +7,13 @@ import Login from "../components/login/login";
 import {
   setLogin,
   set_home,
-  setEmail,
+  setUsername,
   setPwd,
   login_email,
   clear_login,
-  admin_login_email
+  reset_login,
+  get_otp,
+  otp_verify
   // googleLogin
 } from "../actions/loginActions";
 export class Controller extends Component {
@@ -30,12 +32,15 @@ export const mapStateToProps = store => {
 };
 export const mapDispatchToProps = dispatch => {
   return {
+    reset_login: () => {
+      dispatch(reset_login())
+    },
     clear_login: () => {
       dispatch(clear_login())
     },
    
-    setEmail: (payload) => {
-      dispatch(setEmail(payload));
+    setUsername: (payload) => {
+      dispatch(setUsername(payload));
     },
     setPwd: (payload) => {
       dispatch(setPwd(payload));
@@ -43,9 +48,13 @@ export const mapDispatchToProps = dispatch => {
     login_email: (login) => {
       dispatch(login_email(login));
     },
-    admin_login_email: (login) => {
-      dispatch(admin_login_email(login));
+    get_otp: (phn) => {
+      dispatch(get_otp(phn));
     },
+    otp_verify: (otp) => {
+      dispatch(otp_verify(otp));
+    },
+   
     setLogin: (type, email, user_token, profile_img) => {
       dispatch(setLogin(type, email, user_token, profile_img));
     },

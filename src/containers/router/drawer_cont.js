@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import DrawerOptions from "../../components/router/drawer";
 
-import { handleDrawerToggle} from "../../actions/loginActions";
+// import { handleDrawerToggle} from "../../actions/loginActions";
 import Drawer from "../../components/router/drawer";
 import DrawerAppBar from "../../components/router/drawer";
 export class Drawer_option_con extends Component {
@@ -26,9 +26,9 @@ export const mapStateToProps = store => {
 export const mapDispatchToProps = dispatch => {
   return {
     
-    handleDrawerToggle: (mobileOpen) => {
-      dispatch(handleDrawerToggle(mobileOpen));
-    },
+    // handleDrawerToggle: (mobileOpen) => {
+    //   dispatch(handleDrawerToggle(mobileOpen));
+    // },
   };
 };
 

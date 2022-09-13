@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import LoaderEm from "../loader/loader_embed";
 import "./login.css";
 
@@ -11,12 +11,14 @@ import Button from "@mui/material/Button";
 
 
 
-
-
 export default function Login(props) {
+ const history = useHistory();
   useEffect(() => {
     clear_login();
     console.log(admin);
+    if(localStorage.getItem('lp_auth_token')){
+      history.push('/')
+    }
   }, []);
 
   const [Type, setType] = useState("password");
@@ -27,7 +29,7 @@ export default function Login(props) {
   const [admin, setAdmin] = useState();
   const {
     login,
-    setEmail,
+    setUsername,
     setPwd,
     login_email,
     clear_login,
@@ -37,9 +39,9 @@ export default function Login(props) {
     loader,
   } = props;
 
-  if (login.user_id !== "") {
-    return <Redirect to="/dashboard" />;
-  }
+  // if (login.user_id !== "") {
+  //   return <Redirect to="/Products" />;
+  // }
 
   const handleToogle = () => {
     if (Type === "password") {
@@ -69,9 +71,9 @@ export default function Login(props) {
                 aria-label="Username"
                 aria-describedby="addon-wrapping"
                 required
-                value={login.email}
+                value={login.username}
                 onChange={(event) => {
-                  setEmail(event.target.value);
+                  setUsername(event.target.value);
                 }}
                 onKeyPress={(event) => {
                   if (
@@ -99,7 +101,7 @@ export default function Login(props) {
                   onKeyPress={(event) => {
                     if (
                       event.key === "Enter" &&
-                      login.email !== "" &&
+                      login.username !== "" &&
                       login.password !== ""
                     ) {
                       login_email(login);
@@ -140,7 +142,7 @@ export default function Login(props) {
                       Create A New User
                     </button>
                   </Link>
-                  <Link to="change-password">
+                  <Link to="forgot-password">
                     <h4
                       className=""
                       style={{ color: "aliceblue", textDecoration: "underline" }}

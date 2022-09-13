@@ -3,45 +3,60 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import "./signup.css";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import firebase from "firebase";
+import { gridDensityHeaderHeightSelector } from "@mui/x-data-grid";
+
+
 export default function Signup(props) {
-    const{
-        createCaste,
-        createCollege,
-        createEmail,
-        createGender,
-        createPassword,
-        createPhone,
-        createProfilePic,
-        createSkills,
-        createName,
-        sign_up,
-        createType,
-        signup,
-        get_profile_pic_link
-        
-    }=props;
+   
     
-    console.log("props", props);
+//   function get_profile_pic_link(file,name) {
+//     console.log(file,name)
+//     return (dispatch) => {
+        
+//       {
+//             var storageRef = firebase.storage().ref();
+//             var uploadTask = storageRef
+//                 .child("/idProof/" + name + ".png")
+//                 .put(file);
+//             uploadTask.on(
+//                 "state_changed",
+//                 function (snapshot) {
+//                 },
+//                 function (error) {
+//                     // dispatch(set_snack_bar(true, "Image Could Not Be sUploaded"));
+//                     alert("Image Could Not Be Uploaded")
+                   
+//                 },
+//                 function () {
+//                     uploadTask.snapshot.ref.getDownloadURL()
+//                     .then(function (downloadURL) {
+//                         alert("Image Uploaded")
+//                         console.log(downloadURL)
+//                         // setUserPhotoIdUrl( downloadURL);
+//                         // props.sign_up(signUpObj);
+//                         // dispatch(unsetLoader());
+//                         console.log(signUpObj)
+                        
+//                     })
+//                 },
+//             );
+//         }
+//     };
+// }
+
     const history = useHistory();
     const [img, setimg] = useState()
     useEffect(()=>{
-      createCaste("1");
+      // createCaste("1");
     
+
+// console.log(date_create);
     },[])
 
 const handleSignUp = () =>{
-
-
-
-if(signup.name==="" || signup.email==="" || signup.college_name==="" || signup.caste==="" || signup.gender==="" || signup.password===""){
-  alert("input all data");
-
-}
-else if(signup.profile_img===""){
-    alert("please upload profile photo")
-}
-else{
-  sign_up(signup);
+console.log(signUpObj)
+  props.sign_up(signUpObj);
 
  
   history.push('/');
@@ -54,8 +69,15 @@ else{
 
 
 
-}
 
+
+const [userFullName,setUserFullName]= useState("");
+const [userEmail,setUserEmail]= useState("");
+const [userPassword, setUserPassword]= useState("");
+const [userPhoneNo,setUserPhoneNo]= useState("");
+const [userPhotoIdUrl, setUserPhotoIdUrl]= useState("");
+
+let signUpObj = {userFullName,userEmail,userPassword,userPhoneNo,userPhotoIdUrl}
 
     return (
 
@@ -78,9 +100,9 @@ else{
                   aria-label="Username"
                   aria-describedby="addon-wrapping"
                   required
-                  value={signup.name}
+                  value={userFullName}
                   onChange={(event) => {
-                    createName(event.target.value);
+                    setUserFullName(event.target.value);
                   }}
                 />
                 <h6>EMAIL ID</h6>
@@ -91,9 +113,9 @@ else{
                   aria-label="Username"
                   aria-describedby="addon-wrapping"
                   required
-                  value={signup.email}
+                  value={userEmail}
                   onChange={(event) => {
-                    createEmail(event.target.value);
+                    setUserEmail(event.target.value);
                   }}
                 />
                 <h6>MOBILE NO</h6>
@@ -104,9 +126,9 @@ else{
                   aria-label="Username"
                   aria-describedby="addon-wrapping"
                   required
-                  value={signup.phone}
+                  value={userPhoneNo}
                   onChange={(event) => {
-                    createPhone(event.target.value);
+                    setUserPhoneNo(event.target.value);
                   }}
                 />
                 
@@ -118,9 +140,9 @@ else{
                   aria-label="Username"
                   aria-describedby="addon-wrapping"
                   required
-                  value={signup.password}
+                  value={userPassword}
                   onChange={(event) => {
-                    createPassword(event.target.value);
+                    setUserPassword(event.target.value);
                   }}
                 />    
                 
@@ -135,14 +157,15 @@ else{
 console.log(img)
               }}/>
    {/* <label class="custom-file-label" for="inputGroupFile01">Choose file</label>  */}
-     <button class=" btn btn-warning my-1" onClick={()=>{
-      get_profile_pic_link(img,signup.name)
-    }}>Upload</button>
+     {/* <button class=" btn btn-warning my-1" onClick={()=>{
+      get_profile_pic_link(img,userFullName)
+    }}>Upload</button> */}
   </div>
 </div>
                 <button className="btn btn-primary my-2"
-                type="submit"
-                  onClick= {handleSignUp}
+                type="button"
+                  onClick= {()=>{ props.get_profile_pic_link(img,userFullName,signUpObj)}}
+                // onClick= {()=>{ props.sign_up(signUpObj,img)}}
                 >Sign Up
                     </button>
                     <Link to="/">

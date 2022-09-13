@@ -4,6 +4,9 @@ import {
  edit_mobile, edit_photo, get_edit_profile_pic_link 
 } from "../../actions/profile/profileAction"
 import Userlist from "../../components/userlist/Userlist";
+import { set_home } from "../../actions/loginActions";
+import { setAuth } from "../../actions/signup/signupAction";
+import { PlaylistAddOutlined } from "@material-ui/icons";
 export class HomeCont extends Component {
   render() {
     return (
@@ -17,6 +20,7 @@ export const mapStateToProps = store => {
     profile: store.profile,
     login: store.login,
     loader: store.loader,
+    auth: store.auth
     // snackbar: store.snackbar,
   };
 };
@@ -31,6 +35,12 @@ export const mapDispatchToProps = dispatch => {
     },
  get_edit_profile_pic_link :(file , name) =>{
    dispatch( get_edit_profile_pic_link (file,name))
+ },
+ set_home: ()=>{
+  dispatch(set_home())
+ },
+ setAuth :(payload)=>{
+  dispatch(setAuth(payload))
  }
 
   };

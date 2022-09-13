@@ -17,16 +17,21 @@ import AdminSignupCont from "../../containers/signup/adminSignupCont";
 // import ForgotPassword from "../login/forgotPassword";
 import ForgotPassword from "../login/forgotPassword";
 import Userlist from "../userlist/Userlist";
-import { HomeCont } from "../../containers/home/homeCont";
+import  HomeCont  from "../../containers/home/homeCont";
 import Products from "../products/Products";
+import ChangePassword from "../login/changePassword";
+import { ForgotCont } from "../../containers/forgotPassword/forgotPassCont";
+import { ChangePasswordCont } from "../../containers/forgotPassword/changePassCont";
 
 class Routes extends Component {
 
     render() {
-        const {login, classes, onLogout} = this.props;
+        const {login, classes,auth,setAuth, onLogout} = this.props;
         let body;
 
-        if (login.isHome === true) {
+        // if (login.isHome===true) 
+        if(!(localStorage.getItem('lp_auth_token')))
+         {
             body =
                 <div
                     style={{
@@ -37,28 +42,36 @@ class Routes extends Component {
                             flexGrow: 1
                         }}>
                         {/* <Route exact path="/" component={Home} /> */}
-                        <Route exact path="/" component={Login}/>
+                        {/* <Route exact path="/" component={Login}/> */}
+                        <Route exact path="/forgot-password" component={ForgotPassword}/>
                         <Route path="/" component={Controller_con}/>
+                        <Route exact path="/login" component={Login}/>
                         <Route exact path="/signup/student" component={SignupCont}/>
                         <Route exact path="/signup/admin" component={AdminSignupCont}/>
-                        <Route exact path="/change-password" component={ForgotPassword}/>
+                        <Route exact path="/change-password" component={ChangePassword}/>
                         {/* <Route path="/" component={StudentDashboardContainer}/> */}
                         {/* <Route exact path="/" component={QuestionCont}/> */}
                         {/* <Route path="/" component={ProfileCont}/> */}
-                      
+                   
                         {/* <Route path="/survey" component={Survey} /> */}
                     </main>
+                    <main>
+                            
+                    <Route exact path="/products" component={Products}/> 
+                        <Route exact path="/" component={HomeCont}/>
+                    </main>
                 </div>
-        } else if
-            (login.type==='S'){
+        } 
+        else 
+          {
                 body =
                 <div
                     style={{
                         display: "",
                     }}>
                     <Drawer_option_con
-                        type={login.type}
-                        onLogout={onLogout}/>
+                        
+                        setAuth={setAuth}/>
                     <main
                         style={{
                             flexGrow: 1,
@@ -67,14 +80,16 @@ class Routes extends Component {
 
                         {/* <Route exact path="/login" component={Login} /> */}
                         {/* <Route exact path="/login" component={Login} /> */}
-                        <Route path="/" component={Controller_con}/>
+                        {/* <Route path="/" component={Controller_con}/> */}
                         {/* ADMIN ROUTES */}
                         {/* <Route exact path="/dashboard" component={AdminDashboardCont}/> */}
-                        <Route exact path="/change-password" component={ForgotPassword}/>
+                        <Route exact path="/change-password" component={ChangePasswordCont}/>
+                        <Route exact path="/forgot-password" component={ForgotCont}/>
                         {/* <Route exact path="/" component={Users}/> */}
                         <Route exact path="/" component={HomeCont}/>
                         {/* <Route exact path="/signup" component={SignupCont}/> */}
                         <Route exact path="/products" component={Products}/> 
+                        <Route exact path="/login" component={Login}/>
 
                         {/* <Route path="/" component={Controller_con}/> */}
 
@@ -84,40 +99,9 @@ class Routes extends Component {
                     {/* <Footer /> */}
                 </div>
             } 
-            else{
-                console.log(login.type,"type");
-                body =
-                <div
-                    style={{
-                        display: "flex",
-                    }}>
-                    <Drawer_option_con
-                        type={login.type}
-                        onLogout={onLogout}/>
-                    <main
-                        style={{
-                            flexGrow: 1,
-                            marginTop: 10
-                        }}
-                    >
-                        {/* <Route exact path="/login" component={Login} /> */}
-                        {/* <Route exact path="/login" component={Login} /> */}
-                        <Route path="/" component={Controller_con}/>
-                        {/* ADMIN ROUTES */}
-                        {/* STUDENT ROUTES */}
-                      
-                        {/* <Route exact path="/" component={ProfileCont}/> */}
-                        {/* <Route exact path="/" component={AdminDashboardCont}/> */}
-                        {/* <Route exact path="/category" component={Category}/> */}
-                        {/* <Route exact path="/request" component={Request}/> */}
-                        {/* <Route exact activeClassName="active" path="/" component={Dashboard}/> */}
-                        {/* <Route exact path="/" component={Users}/>
-                        <Route exact path="/lead" component={Lead}/> */}
-                        {/* <Route exact path="/" component={AddLead}/> */}
-                    </main>
-                    {/* <Footer /> */}
-                </div>
-            }
+
+
+            
             
         
 

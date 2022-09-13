@@ -5,7 +5,6 @@ import {
   Redirect
 } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
-import { Button } from "@material-ui/core";
 
 import {NavLink} from "react-router-dom";
 
@@ -18,12 +17,12 @@ export default class LG extends React.Component {
   }
 
   render() {
-    const { login} = this.props;
+    const { login,setLogin} = this.props;
  
 
 
     if (this.state.redirect === true) {
-      return <Redirect to="/" />
+      return <Redirect to="/login" />
     }
     return (
       // <IconButton
@@ -39,27 +38,37 @@ export default class LG extends React.Component {
       //   }}>
       //   <Icon style={{ color: "white" }}>power_settings_new</Icon>
       // </IconButton>
-<Link to="/">
+
       <button
 
 onClick={() => {
-  localStorage.removeItem("sre_type");
-        localStorage.removeItem("sre_name");
+  localStorage.removeItem("lp_auth_token");
+        // localStorage.removeItem("sre_name");
         // localStorage.removeItem("qubi7_profile_pic");
-        localStorage.removeItem("sre_user_id");
+        localStorage.removeItem("lp_user_name");
+        localStorage.removeItem("lp_user_id");
+        localStorage.removeItem("lp_user_role");
         // localStorage.removeItem("qubi7_company_id");
         // localStorage.removeItem("taxopliance_organization_id");
         this.setState({redirect:true})
-        this.props.onLogout()
+        // this.props.onLogout()
+        // setLogin({
+        //   username :"",
+        //   isHome:true,
+        //   name:"",
+        //   user_id:"",
+        //   password:"",
+        //   type:""
+        // })
+        // this.props.setAuth(false)
+        // console.log(login.username)
         
       }}
       
       style={{position:"relative",
-      height:"40px",
+      height:"50px",
       width:"80px",
-      backgroundColor:"red",
-      color:"aliceblue",
-      
+      border:"1px solid",
            borderRadius:"5px",
            // background:"#fadde1",
            fontSize:"15px",
@@ -70,7 +79,6 @@ onClick={() => {
           
           > Log Out</button>
 
-          </Link>
       
     )
   }
