@@ -51,7 +51,7 @@ export default function Products() {
 <Types/>
       </div>
         <Container className="my-4">
-<LG_Cont/>
+
       <Box>
 
   <Button variant="contained" className='m-1'> Create New Type</Button>

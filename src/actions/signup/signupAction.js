@@ -101,7 +101,7 @@ export function sign_up(signup, url) {
             headers: {
                 // "Accept": "application/json",
                 // "Content-Type": "application/json",
-                "origin":"http://localhost:3000",
+                "origin":UNIVERSAL.PORT,
                 "content-type":"application/json",
                 'requested-timestamp':date_create,
                 "conversation-id":conId

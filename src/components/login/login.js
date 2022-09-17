@@ -8,7 +8,8 @@ import Loader from "../loader/loader";
 
 import Loader_cont from "../../containers/loader/loader_cont";
 import Button from "@mui/material/Button";
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 export default function Login(props) {
@@ -51,7 +52,11 @@ export default function Login(props) {
 
   return (
     <div>
-     
+     {
+      loader.openLoader===true ?<div>  <Box sx={{ position: 'fixed', top:"10%", left:"50%", zIndex:"5" }}>
+      <CircularProgress />
+    </Box></div> : <></>
+     }
 
       <section className="login-section">
         <div className="container d-flex text-center justify-content-center ">

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import UNIVERSAL from '../../config/config'
 import { Link } from 'react-router-dom'
@@ -28,13 +28,13 @@ export default function ChangePassword() {
         let conId =  Math.random().toString(36).slice(2);
       let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
         axios
-          .post(`${UNIVERSAL.BASEURL}users/verifyuserotp`, {
+          .put(`${UNIVERSAL.BASEURL}users/createnewpassword`, {
             newPassword:password,
             phoneNo:localStorage.getItem('temp_phn_no')
           },
           {
             headers: {
-              "origin": "http://localhost:3000",
+  
               "content-type": "application/json",
               'requested-timestamp': date_create,
               "conversation-id": conId
@@ -59,7 +59,14 @@ export default function ChangePassword() {
         });
       }
 
+      useEffect(() => {
+        
+      if(localStorage.getItem("temp_otp")!="verified"){
+        history.push('/forgot-password')
+      }
 
+      }, [])
+      
 
 
   return (

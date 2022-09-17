@@ -25,7 +25,7 @@ export default function ForgotPassword() {
         },
         {
           headers: {
-            "origin": "http://localhost:3000",
+            
             "content-type": "application/json",
             'requested-timestamp': date_create,
             "conversation-id": conId
@@ -60,7 +60,7 @@ export default function ForgotPassword() {
         },
         {
           headers: {
-            "origin": "http://localhost:3000",
+            
             "content-type": "application/json",
             'requested-timestamp': date_create,
             "conversation-id": conId
@@ -71,7 +71,7 @@ export default function ForgotPassword() {
           if (responseJson.status===200) {
 
                   // dispatch(view_profile(responseJson.token));
-             
+                  localStorage.setItem('temp_otp',"verified");
               //    dispatch( get_dashboard_data());
          history.push('/change-password')
                   console.log(responseJson);
@@ -79,7 +79,7 @@ export default function ForgotPassword() {
 
           } else {
               
-             
+            alert(responseJson.data.data)
           }
          
       });
@@ -89,7 +89,7 @@ export default function ForgotPassword() {
 
   return (
     <div>
-              <section className={submitOtp===false ? "login-section" : "d-none"}>
+              <section className="login-section">
         <div className="container d-flex text-center justify-content-center ">
           <div className="card login-card text-center ">
             <div class=" content">
@@ -103,7 +103,7 @@ export default function ForgotPassword() {
                 aria-label="Username"
                 aria-describedby="addon-wrapping"
                 required
-                className={otp===false ? "d-block form-control login-form mt-3":"d-none"}
+                className="d-block form-control login-form mt-3"
               value={phnNo}
               onChange={(e)=>{
                 setPhnNo(e.target.value);

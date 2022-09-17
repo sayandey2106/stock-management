@@ -43,7 +43,7 @@ export function login_email(login) {
             method: "POST",
             headers: {
                 // "Accept": "application/json",
-                "origin":"http://localhost:3000",
+                // "origin":UNIVERSAL.PORT,
                 "content-type":"application/json",
                 'requested-timestamp':date_create,
                 "conversation-id":conId
@@ -73,7 +73,7 @@ export function login_email(login) {
 
                 } else {
                     
-                   
+                   alert(responseJson.data)
                 }
                 dispatch(unsetLoader())
             })

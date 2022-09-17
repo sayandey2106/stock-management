@@ -13,8 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Lg_Cont, { LG_Cont } from '../../containers/router/Lg_Cont';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 const drawerWidth = 240;
 const navItems = [{
@@ -28,13 +29,14 @@ const navItems = [{
 {
   name:"Transfer",
   path:"/Transfer"
-}
+},
+
 ];
 
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const history = useHistory();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -42,9 +44,9 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        ADMIN PANEL
       </Typography>
-      <LG_Cont/>
+   
       <Divider />
       
       <List>
@@ -57,6 +59,17 @@ function DrawerAppBar(props) {
           </ListItem>
           </Link>
         ))}
+        <Button variant="outlined"  
+              onClick={()=>{
+                localStorage.removeItem("lp_auth_token");
+                localStorage.removeItem("lp_user_name");
+                localStorage.removeItem("lp_user_id");
+                localStorage.removeItem("lp_user_role");
+                history.push('/login')
+              }}
+              > Logout
+              <LogoutOutlinedIcon/>
+              </Button>
       
       </List>
     </Box>
@@ -82,16 +95,27 @@ function DrawerAppBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            ADMIN PANEL
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
+            {navItems.map((item,i) => (
               <Link to={item.path}>
-              <Button key={item} sx={{ color: '#fff' }}>
+              <Button key={item} sx={{ color: '#fff' }} >
                 {item.name}
               </Button>
               </Link>
             ))}
+              <Button variant="outlined"  sx={{ color: '#fff' , border:"1px solid white"}}
+              onClick={()=>{
+                localStorage.removeItem("lp_auth_token");
+                localStorage.removeItem("lp_user_name");
+                localStorage.removeItem("lp_user_id");
+                localStorage.removeItem("lp_user_role");
+                history.push('/login')
+              }}
+              > Logout
+              <LogoutOutlinedIcon/>
+              </Button>
           </Box>
         </Toolbar>
       </AppBar>
