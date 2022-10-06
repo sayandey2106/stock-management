@@ -97,23 +97,24 @@ export function set_home(payload) {
     };
 }
 export function setLogin(payload) {
-    // localStorage.setItem('sre_type', payload.type);
-    // // localStorage.setItem('qubi7_token', payload.user_token);
-    // localStorage.setItem('lp_username', payload.username);
-    // localStorage.setItem('sre_email', payload.email);
+    // sessionStorage.setItem('sre_type', payload.type);
+    // // sessionStorage.setItem('qubi7_token', payload.user_token);
+    // sessionStorage.setItem('lp_username', payload.username);
+    // sessionStorage.setItem('sre_email', payload.email);
    
-    // // localStorage.setItem('sre_profile_pic', payload.profile_pic);
-    // localStorage.setItem('isHome', false)
-    localStorage.setItem('lp_auth_token', payload.token);
+    // // sessionStorage.setItem('sre_profile_pic', payload.profile_pic);
+    // sessionStorage.setItem('isHome', false)
+    sessionStorage.setItem('lp_auth_token', payload.token);
 
-    // localStorage.setItem('sre_user_id', payload.id);
-    // localStorage.setItem('qubi7_company_id', payload.company_id);
-    // localStorage.setItem('taxopliance_organization_id', payload.organization_id);
+    // sessionStorage.setItem('sre_user_id', payload.id);
+    // sessionStorage.setItem('qubi7_company_id', payload.company_id);
+    // sessionStorage.setItem('taxopliance_organization_id', payload.organization_id);
     var decode = jwt(payload.token);
     console.log(decode);
-    localStorage.setItem('lp_user_name', decode.result.fullName);
-    localStorage.setItem('lp_user_id', decode.result.id);
-    localStorage.setItem('lp_user_role', decode.result.role);
+    sessionStorage.setItem('lp_user_name', decode.result.fullName);
+    sessionStorage.setItem('lp_user_id', decode.result.id);
+    sessionStorage.setItem('lp_user_role', decode.result.role);
+    sessionStorage.setItem('lp_user_email', decode.result.email);
     return {
         type: LOGIN,
         payload: decode,
@@ -169,7 +170,7 @@ export function get_otp(phnNo) {
 
 
           alert(responseJson.msg);
-          localStorage.setItem('temp_phn_no', responseJson.phoneno);
+          sessionStorage.setItem('temp_phn_no', responseJson.phoneno);
 
         } else {
 
@@ -203,7 +204,7 @@ export function otp_verify(otp){
           },
           body: JSON.stringify({
             userOtp:otp,
-            phoneNo:localStorage.getItem('temp_phn_no')
+            phoneNo:sessionStorage.getItem('temp_phn_no')
              }),
       }).then((response) => response.json())
           .then((responseJson) => {
@@ -249,7 +250,7 @@ export function  change_password  (password) {
             },
             body: JSON.stringify({
                 newPassword:password,
-              phoneNo:localStorage.getItem('temp_phn_no')
+              phoneNo:sessionStorage.getItem('temp_phn_no')
                }),
         }).then((response) => response.json())
             .then((responseJson) => {
@@ -307,9 +308,9 @@ export function  change_password  (password) {
 //     };
 // }
 // export function check_login_params() {
-//     if (localStorage.getItem("user_token") !== null) {
+//     if (sessionStorage.getItem("user_token") !== null) {
 //         return (dispatch) => {
-//             dispatch(setLogin(localStorage.getItem("type"), localStorage.getItem("email"), localStorage.getItem("user_token"), localStorage.getItem("profile_img"), localStorage.getItem("name")))
+//             dispatch(setLogin(sessionStorage.getItem("type"), sessionStorage.getItem("email"), sessionStorage.getItem("user_token"), sessionStorage.getItem("profile_img"), sessionStorage.getItem("name")))
 //             if (!firebase.apps.length) {
 //                 firebase.initializeApp(firebase_config);
 //             }
@@ -318,7 +319,7 @@ export function  change_password  (password) {
 // }
 
 // export const openLoginModal = () => {
-//     const loginStatus = localStorage.getItem("skyyrider_user_id");
+//     const loginStatus = sessionStorage.getItem("skyyrider_user_id");
 //     if (loginStatus)
 //         return {
 //             type: CLOSE_LOGIN_MODAL

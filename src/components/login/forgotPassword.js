@@ -38,7 +38,7 @@ export default function ForgotPassword() {
                   // dispatch(view_profile(responseJson.token));
              alert(responseJson.data.msg)
               //    dispatch( get_dashboard_data());
-         localStorage.setItem('temp_phn_no',phn);
+         sessionStorage.setItem('temp_phn_no',phn);
                   console.log(responseJson);
               // dispatch(set_snack_bar(true, responseJson.message));
 
@@ -56,7 +56,7 @@ export default function ForgotPassword() {
       axios
         .post(`${UNIVERSAL.BASEURL}users/verifyuserotp`, {
           userOtp:otp,
-          phoneNo:localStorage.getItem('temp_phn_no')
+          phoneNo:sessionStorage.getItem('temp_phn_no')
         },
         {
           headers: {
@@ -71,7 +71,7 @@ export default function ForgotPassword() {
           if (responseJson.status===200) {
 
                   // dispatch(view_profile(responseJson.token));
-                  localStorage.setItem('temp_otp',"verified");
+                  sessionStorage.setItem('temp_otp',"verified");
               //    dispatch( get_dashboard_data());
          history.push('/change-password')
                   console.log(responseJson);

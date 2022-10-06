@@ -61,10 +61,10 @@ function DrawerAppBar(props) {
         ))}
         <Button variant="outlined"  
               onClick={()=>{
-                localStorage.removeItem("lp_auth_token");
-                localStorage.removeItem("lp_user_name");
-                localStorage.removeItem("lp_user_id");
-                localStorage.removeItem("lp_user_role");
+                sessionStorage.removeItem("lp_auth_token");
+                sessionStorage.removeItem("lp_user_name");
+                sessionStorage.removeItem("lp_user_id");
+                sessionStorage.removeItem("lp_user_role");
                 history.push('/login')
               }}
               > Logout
@@ -107,10 +107,10 @@ function DrawerAppBar(props) {
             ))}
               <Button variant="outlined"  sx={{ color: '#fff' , border:"1px solid white"}}
               onClick={()=>{
-                localStorage.removeItem("lp_auth_token");
-                localStorage.removeItem("lp_user_name");
-                localStorage.removeItem("lp_user_id");
-                localStorage.removeItem("lp_user_role");
+                sessionStorage.removeItem("lp_auth_token");
+                sessionStorage.removeItem("lp_user_name");
+                sessionStorage.removeItem("lp_user_id");
+                sessionStorage.removeItem("lp_user_role");
                 history.push('/login')
               }}
               > Logout

@@ -27,12 +27,12 @@ export default class LG extends React.Component {
     return (
       // <IconButton
       //   onClick={() => {
-      //     localStorage.removeItem("qubi7_type");
-      //     localStorage.removeItem("qubi7_name");
-      //     localStorage.removeItem("qubi7_profile_pic");
-      //     localStorage.removeItem("qubi7_user_id");
-      //     localStorage.removeItem("qubi7_company_id");
-      //     // localStorage.removeItem("taxopliance_organization_id");
+      //     sessionStorage.removeItem("qubi7_type");
+      //     sessionStorage.removeItem("qubi7_name");
+      //     sessionStorage.removeItem("qubi7_profile_pic");
+      //     sessionStorage.removeItem("qubi7_user_id");
+      //     sessionStorage.removeItem("qubi7_company_id");
+      //     // sessionStorage.removeItem("taxopliance_organization_id");
       //     this.setState({redirect:true})
       //     this.props.onLogout()
       //   }}>
@@ -42,14 +42,14 @@ export default class LG extends React.Component {
       <button
 
 onClick={() => {
-  localStorage.removeItem("lp_auth_token");
-        // localStorage.removeItem("sre_name");
-        // localStorage.removeItem("qubi7_profile_pic");
-        localStorage.removeItem("lp_user_name");
-        localStorage.removeItem("lp_user_id");
-        localStorage.removeItem("lp_user_role");
-        // localStorage.removeItem("qubi7_company_id");
-        // localStorage.removeItem("taxopliance_organization_id");
+  sessionStorage.removeItem("lp_auth_token");
+        // sessionStorage.removeItem("sre_name");
+        // sessionStorage.removeItem("qubi7_profile_pic");
+        sessionStorage.removeItem("lp_user_name");
+        sessionStorage.removeItem("lp_user_id");
+        sessionStorage.removeItem("lp_user_role");
+        // sessionStorage.removeItem("qubi7_company_id");
+        // sessionStorage.removeItem("taxopliance_organization_id");
         this.setState({redirect:true})
         // this.props.onLogout()
         // setLogin({

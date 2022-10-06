@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import { addNewQuality } from '../../actions/quality/qualityAction';
+import { addNewType } from '../../actions/type/typeAction';
 
 
 const style = {
@@ -16,7 +17,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 300,
+    width: 400,
     bgcolor: 'background.paper',
     // border: '2px solid #000',
     boxShadow: 24,
@@ -24,70 +25,47 @@ const style = {
   };
 
  
-export default function CreateQualityModal() {
-  const [profitType, setProfitType] = React.useState('');
-  const [qualityName, setQualityName]= React.useState('');
-  const [profitValue, setProfitValue] = React.useState(0);
+export default function CreateTypeModal() {
+  
+  const [productTypeName, setProductTypeName]= React.useState('');
+  let newType = {productTypeName};
 
-  const handleChange = (event) => {
-    setProfitType(event.target.value);
-  };
-
+ 
   const handleSubmit = () =>{
-    addNewQuality(newQuality);
+    addNewType(newType);
   }
 
-  let newQuality = {qualityName,profitType,profitValue};
-
+  
   return (
     <div>
         <Box sx={style} component="form" ml={5} 
         onSubmit={(e)=>{
         console.log("submit")
       e.preventDefault()
-     profitType==="" || qualityName==="" ? alert("Enter all fields"):
-     handleSubmit()
-      setProfitType("")
-      setQualityName("")
-      setProfitValue(0)
-   
+      handleSubmit()
+    setProductTypeName("")
+
       }}>
         <div className='text-center'>
 
+
         <Typography m={2} variant="h4" component="h6"> 
-            Create New Quality
+            Create New Type
         </Typography>
         <TextField id="standard-basic" label="Quality Name" variant="standard" type="text"
-        value={qualityName}
+        value={productTypeName}
         autoComplete="off"
         onChange={(e)=>{
-          setQualityName(e.target.value);
+          setProductTypeName(e.target.value);
         }}
         />
-        <Box sx={{}} ml={3} my={2}>
+        <Box sx={{ minWidth: 120 }} mt={3} mb={2}>
    
 
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        margin="normal"
-        value={profitType}
-        onChange={handleChange}
-        >
-        <FormControlLabel value="Percentage" control={<Radio />} label="Percentage" />
-        <FormControlLabel value="Amount"  control={<Radio />} label="Amount" />
-        
-      </RadioGroup>
         
     </Box>
-        <TextField id="standard-basic" label="Profit" variant="standard" type='number'
-        value={profitValue}
-        onChange={(e)=>{
-          setProfitValue(e.target.value)
-        }}
-        />
-        <Box my={2}>
+       
+        <Box m={3}>
        <Button variant='contained' type="submit" >Submit</Button>
        </Box>
         </div>

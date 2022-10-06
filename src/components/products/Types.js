@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, ButtonGroup } from '@mui/material'
 import { Container, Box } from '@mui/system'
 import Table from '@mui/material/Table';
@@ -18,23 +18,59 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete'
 import { set_home } from '../../actions/loginActions';
 import IconButton from '@mui/material/IconButton';
-function createData(name, quantity) {
-    return { name, quantity };
-}
+import CreateTypeModal from '../modals/createTypeModal';
+import Backdrop from '@mui/material/Backdrop';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import { getAllType } from '../../actions/type/typeAction';
+import Skeleton from '@mui/material/Skeleton';
 
-const rows = [
-    createData('Kurti', 60),
-    createData('Saree', 50),
-    createData('Blouse', 24),
-];
 
 export default function Types() {
+    const [types, setTypes]= useState([])
+    
+    const get_all_type = ()=>{
+        getAllType().then((res)=>{
+      
+            setTypes(res.data);
+           console.log(types)
+           
+          }).catch((err)=>{
+           console.log(err)
+          })
+    }
+    
+    
+    useEffect(() => {
+        
+        get_all_type()
+    
+    }, [])
+    
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () =>{
+
+        setOpen(false);
+        get_all_type();
+    }
   return (
     <div>
+
+
+
+{
+    types.length===0 ?
+    <Container>
+    <Skeleton />
+    <Skeleton animation="wave" />
+    <Skeleton animation={false} />
+    </Container> 
+    :
     <Container>
 
 <Box>
-    <Button variant="contained" className='m-1'>Create New Type</Button>
+    <Button variant="contained" className='m-1' onClick={handleOpen}>Create New Type</Button>
 </Box>
 <TableContainer component={Paper} style={{ marginTop: "30px" }}>
     <Table sx={{ minWidth: 250 }} aria-label="simple table">
@@ -48,13 +84,13 @@ export default function Types() {
             
         </TableHead>
         <TableBody>
-            {rows.map((row) => (
+            {types.map((row) => (
                 <TableRow
-                    key={row.name}
+                    key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     
-                    <TableCell align="center" style={{ fontSize: "18px" }}>{row.name}</TableCell>
+                    <TableCell align="center" style={{ fontSize: "18px" }}>{row.typeName}</TableCell>
                     <TableCell align="center" style={{ fontSize: "18px" }}>{row.quantity}</TableCell>
                     <TableCell align="center" style={{ fontSize: "18px" }}>
                         <IconButton color="primary" aria-label="add to shopping cart">
@@ -70,6 +106,31 @@ export default function Types() {
     </Table>
 </TableContainer>
 </Container>
+}
+
+
+
+
+
+<Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box>
+
+            <CreateTypeModal/>
+          </Box>
+         
+        </Fade>
+      </Modal>
     </div>
   )
 }

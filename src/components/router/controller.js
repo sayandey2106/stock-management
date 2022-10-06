@@ -13,13 +13,13 @@ export default class LoginController extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem("lp_user_id") !== null) {
+    if (sessionStorage.getItem("lp_user_id") !== null) {
       this.props.setLogin({
-        // type: localStorage.getItem("sre_type"),
-        // id: localStorage.getItem("sre_user_id"),
-        token : localStorage.getItem("lp_auth_token"),
-        username : localStorage.getItem("lp_user_name"),
-        user_id: localStorage.getItem("lp_user_id")
+        // type: sessionStorage.getItem("sre_type"),
+        // id: sessionStorage.getItem("sre_user_id"),
+        token : sessionStorage.getItem("lp_auth_token"),
+        username : sessionStorage.getItem("lp_user_name"),
+        user_id: sessionStorage.getItem("lp_user_id")
         
       });
       // this.props.setAuth(true)

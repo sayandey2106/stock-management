@@ -17,7 +17,7 @@ import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
-    // localStorage.setItem('isHome',true)
+    // sessionStorage.setItem('isHome',true)
   }, [])
   
   return (

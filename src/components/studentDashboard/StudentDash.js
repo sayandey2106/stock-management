@@ -303,7 +303,7 @@ function StudentDash(props) {
 
                             setId(quiz._id);
                             setCurrQuiz(quiz._id);
-                            localStorage.setItem("curr_quiz", quiz._id);
+                            sessionStorage.setItem("curr_quiz", quiz._id);
                             // start_exam(quiz._id)
 
                             quiz.date === date && time >= quiz.time
@@ -423,8 +423,8 @@ function StudentDash(props) {
           <button
             className="btn btn-success"
             onClick={() => {
-              start_exam(localStorage.getItem("curr_quiz"));
-              view_quiz_by_id(localStorage.getItem("curr_quiz"));
+              start_exam(sessionStorage.getItem("curr_quiz"));
+              view_quiz_by_id(sessionStorage.getItem("curr_quiz"));
               // currQuiz.start_exam_status ===true ?
               history.push("/quiz");
               // : alert("already done")

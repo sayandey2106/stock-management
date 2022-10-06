@@ -30,7 +30,7 @@ class Routes extends Component {
         let body;
 
         // if (login.isHome===true) 
-        if(!(localStorage.getItem('lp_auth_token')))
+        if(!(sessionStorage.getItem('lp_auth_token')))
          {
             body =
                 <div

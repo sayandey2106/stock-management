@@ -17,7 +17,7 @@ export default function Login(props) {
   useEffect(() => {
     clear_login();
     console.log(admin);
-    if(localStorage.getItem('lp_auth_token')){
+    if(sessionStorage.getItem('lp_auth_token')){
       history.push('/')
     }
   }, []);

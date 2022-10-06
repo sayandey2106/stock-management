@@ -15,7 +15,7 @@ export function add_quiz(new_quiz) {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 // "Auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-                "Auth-token" : (localStorage.getItem('sre_auth_token'))
+                "Auth-token" : (sessionStorage.getItem('sre_auth_token'))
                 // user_token: token,
                 // organization_id: oid
                 // company_id:id
@@ -56,7 +56,7 @@ export function edit_quiz( quiz_id,newQuiz) {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 // "Auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-                "Auth-token" : (localStorage.getItem('sre_auth_token'))
+                "Auth-token" : (sessionStorage.getItem('sre_auth_token'))
                 // user_token: token,
                 // organization_id: oid
                 // company_id:id
@@ -97,7 +97,7 @@ export function delete_quiz( quiz_id) {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 // "Auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-                "Auth-token" : (localStorage.getItem('sre_auth_token'))
+                "Auth-token" : (sessionStorage.getItem('sre_auth_token'))
                 // user_token: token,
                 // organization_id: oid
                 // company_id:id
@@ -138,7 +138,7 @@ export function student_marks( quiz_id) {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 // "Auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-                "Auth-token" : (localStorage.getItem('sre_auth_token'))
+                "Auth-token" : (sessionStorage.getItem('sre_auth_token'))
                 // user_token: token,
                 // organization_id: oid
                 // company_id:id

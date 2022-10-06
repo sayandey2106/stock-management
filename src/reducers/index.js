@@ -8,12 +8,12 @@ import signup from  "../reducers/signup/signupReducer";
 import editProfile from "../reducers/profile/editProfileReducer"
 import auth from "../reducers/auth";
 import adminSignup from "../reducers/signup/adminSignupReducer"
-
+import user from "../reducers/users/userReducer"
 export default combineReducers({
     loader,
    auth,
     login,
-   
+   user,
     request,
     dashboard,
 

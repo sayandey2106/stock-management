@@ -30,7 +30,7 @@ export default function ChangePassword() {
         axios
           .put(`${UNIVERSAL.BASEURL}users/createnewpassword`, {
             newPassword:password,
-            phoneNo:localStorage.getItem('temp_phn_no')
+            phoneNo:sessionStorage.getItem('temp_phn_no')
           },
           {
             headers: {
@@ -61,7 +61,7 @@ export default function ChangePassword() {
 
       useEffect(() => {
         
-      if(localStorage.getItem("temp_otp")!="verified"){
+      if(sessionStorage.getItem("temp_otp")!="verified"){
         history.push('/forgot-password')
       }
 

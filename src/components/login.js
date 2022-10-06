@@ -18,7 +18,7 @@ class Login extends Component {
   }
   componentDidMount() {
     // this.props.clear_login()
-    // if (localStorage.getItem('socus_token') !== null) {
+    // if (sessionStorage.getItem('socus_token') !== null) {
     //   return <Redirect to="/" />
     // }
   }

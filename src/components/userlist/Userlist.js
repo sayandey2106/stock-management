@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Userlist.css';
 import { Button } from '@mui/material';
 import Table from '@mui/material/Table';
@@ -15,35 +15,73 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 // import { setAuth } from '../../actions/signup/signupAction';
+import Box from '@mui/material/Box';
 import Piecharts from '../piecharts/piecharts';
 import { useHistory } from 'react-router-dom';
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 1591232345, "sayand@ghjsa", 24, 4.0),
-    createData('Ice cream sandwich', 2371232345, "sayand@ghjsa.sd", 37, 4.3),
-    createData('Eclair', 2621232345, "sayand@ghjsa.cg", 24, 6.0),
-    createData('Cupcake', 3051232345, "sayand@ghjsas", 67, 4.3),
-    createData('Gingerbread', 3561232345, "sayand@ghjsa.cpm", 49, 3.9),
-  ];
+import UNIVERSAL from '../../config/config';
+import moment from 'moment';
+import axios from 'axios';
+import { getAllUsers , activateUser} from '../../actions/user/userAction';
+import Skeleton from '@mui/material/Skeleton';
+import { Container } from '@mui/system';
+import { connect } from 'react-redux';
 
-  //toggle button
 
-  //toggle button
 
-export default function Userlist(props) {
+export default function Userlist() {
+
+
+
+  let res;
+const [users, setUsers] = useState([])
+const [active, setActive] = useState(false)
+const [loader, setLoader] = useState(false)
+
+
   const history = useHistory();
+
   useEffect(() => {
-  if(!(localStorage.getItem('lp_auth_token'))){
+  if(!(sessionStorage.getItem('lp_auth_token'))){
     history.push('/login');
   }
-  }, [])
-  const{set_home, setAuth}= props;
-  // console.log("props are" , props)
+  
+
+ getAllUsers().then((res)=>{
+  
+   setUsers(res.data);
+  
+  
+ }).catch((err)=>{
+  console.log(err)
+ })
+ 
+ 
+}, [])
+
+var activeArr=[];
+
+for(let i=0; i<users.length; i++)
+{
+  activeArr[i]=users[i].access;
+}
+console.log("actArr is ", activeArr);
+
+const handleToggle =(e,phnNo)=>
+{
+  // activateUser(9681253017);
+  setActive(e.target.checked)
+}
+
+ 
   return (
-    <div className='container'>
+    <div className='container'>{
+      users.length === 0 ? 
+          <Container>
+          <Skeleton />
+          <Skeleton animation="wave" />
+          <Skeleton animation={false} />
+          </Container>
+    :
   <TableContainer component={Paper} style={{margin:"auto"}}>
       <Table sx={{ minWidth: 250 }} aria-label="simple table">
         <TableHead>
@@ -55,28 +93,46 @@ export default function Userlist(props) {
             <TableCell style={{color:"white",fontSize:"20px"}} align="center">Active</TableCell>
           </TableRow>
         </TableHead>
+
+
+
+
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
+
+
+          {
+                 users.map((row,i) => {
+           
+            return(
+              
+              
+          <TableRow
+              key={row.fullName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" style={{fontSize:"18px"}} scope="row">
-                {row.name}
+                {row.fullName}
               </TableCell>
-              <TableCell align="center" style={{fontSize:"18px"}}>{row.calories}</TableCell>
-              <TableCell align="center" style={{fontSize:"18px"}}>{row.fat}</TableCell>
+              <TableCell align="center" style={{fontSize:"18px"}}>{row.phoneNo}</TableCell>
+              <TableCell align="center" style={{fontSize:"18px"}}>{row.email}</TableCell>
               <TableCell align="center" style={{fontSize:"18px"}}>
-              <Button variant="contained">View ID</Button>
+              <Button variant="contained" href={row.photoIdUrl}>View ID</Button>
               </TableCell>
               <TableCell align="center" style={{fontSize:"18px"}}>
-              <Switch  defaultChecked color="success" />
+             <Switch checked={activeArr[i]}
+              onChange={(e)=>{handleToggle(e,row.phoneNo)}}  color="success" />
               </TableCell>
             </TableRow>
-          ))}
+)})
+
+
+}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer> 
+    }
+     
+  
     <Piecharts/>
     </div>
   )

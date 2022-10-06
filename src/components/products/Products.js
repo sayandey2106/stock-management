@@ -36,7 +36,7 @@ function createData(name, type, quality, cp, sp ) {
 export default function Products() {
   const history = useHistory();
   useEffect(() => {
-  if(!(localStorage.getItem('lp_auth_token'))){
+  if(!(sessionStorage.getItem('lp_auth_token'))){
     history.push('/login');
   }
   }, [])
