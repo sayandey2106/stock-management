@@ -22,6 +22,8 @@ import Products from "../products/Products";
 import ChangePassword from "../login/changePassword";
 import { ForgotCont } from "../../containers/forgotPassword/forgotPassCont";
 import { ChangePasswordCont } from "../../containers/forgotPassword/changePassCont";
+import ShopAndWarehouse from "../shop/shopAndWarehouse";
+
 
 class Routes extends Component {
 
@@ -55,11 +57,7 @@ class Routes extends Component {
                    
                         {/* <Route path="/survey" component={Survey} /> */}
                     </main>
-                    <main>
-                            
-                    <Route exact path="/products" component={Products}/> 
-                        <Route exact path="/" component={HomeCont}/>
-                    </main>
+                 
                 </div>
         } 
         else 
@@ -87,6 +85,7 @@ class Routes extends Component {
                         <Route exact path="/forgot-password" component={ForgotCont}/>
                         {/* <Route exact path="/" component={Users}/> */}
                         <Route exact path="/" component={HomeCont}/>
+                        <Route exact path="/Shop" component={ShopAndWarehouse}/>
                         {/* <Route exact path="/signup" component={SignupCont}/> */}
                         <Route exact path="/products" component={Products}/> 
                         <Route exact path="/login" component={Login}/>

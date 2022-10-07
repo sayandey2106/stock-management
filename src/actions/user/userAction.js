@@ -24,25 +24,43 @@ export const  getAllUsers = async () =>{
  
 }
 
-export const  activateUser = async (phnNo) =>{
+export const  activateUser = async (username) =>{
    
     // const signUpObj = {signup }
     let conId =  Math.random().toString(36).slice(2);
     let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
     console.warn("calling active user");
-    const headers = {  "content-type": "application/json",
-     "Authorization":`Bearer ${sessionStorage.getItem("lp_auth_token")}`,
-    "currentUser":sessionStorage.getItem("lp_user_email"),
-    "requested-timestamp": date_create,
+ 
+    
+ const response = await fetch(`${UNIVERSAL.BASEURL}users/activate`, {
+    method :"PUT",
+  headers : {
+    "content-type": "application/json",
+    "Authorization":`Bearer ${sessionStorage.getItem("lp_auth_token")}`,
+   "currentUser":sessionStorage.getItem("lp_user_email"),
+   "requested-timestamp": date_create,
 "conversation-id": conId,
-    }
-    const body ={
-        "username" : phnNo,
-        
-    }
-    const meth ={
-        method:"PUT"
-    }
+  },
+body : JSON.stringify({
+    "username" : username,
+})
+
+ });
+    const data = await response.json();
+    console.log(data);
+
+    return (data)
+}
+
+
+export const  deactivateUser = async (username) =>{
+   
+    // const signUpObj = {signup }
+    let conId =  Math.random().toString(36).slice(2);
+    let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
+    console.warn("calling deactive user");
+ 
+    
  const response = await fetch(`${UNIVERSAL.BASEURL}users/deactivate`, {
     method :"PUT",
   headers : {
@@ -53,16 +71,15 @@ export const  activateUser = async (phnNo) =>{
 "conversation-id": conId,
   },
 body : JSON.stringify({
-    "username" : phnNo,
+    "username" : username,
 })
 
  });
     const data = await response.json();
     console.log(data);
-   
+
     return (data)
 }
-
 
 
 

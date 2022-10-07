@@ -21,22 +21,48 @@ import { useHistory } from 'react-router-dom';
 import UNIVERSAL from '../../config/config';
 import moment from 'moment';
 import axios from 'axios';
-import { getAllUsers , activateUser} from '../../actions/user/userAction';
+import { getAllUsers , activateUser, deactivateUser} from '../../actions/user/userAction';
 import Skeleton from '@mui/material/Skeleton';
 import { Container } from '@mui/system';
 import { connect } from 'react-redux';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Userlist() {
 
 
 
-  let res;
 const [users, setUsers] = useState([])
 const [active, setActive] = useState(false)
-const [loader, setLoader] = useState(false)
+const [username, setUsername] = useState("")
+const [open, setOpen] = useState(false);
 
+const handleOpen = () =>{
+
+    setOpen(true);
+} 
+const handleClose = () =>{
+  setOpen(false);
+  get_all_user()
+} 
+const get_all_user = ()=>{
+  getAllUsers().then((res)=>{
+  
+    setUsers(res.data);
+   
+   
+  }).catch((err)=>{
+   console.log(err)
+  })
+}
 
   const history = useHistory();
 
@@ -46,14 +72,7 @@ const [loader, setLoader] = useState(false)
   }
   
 
- getAllUsers().then((res)=>{
-  
-   setUsers(res.data);
-  
-  
- }).catch((err)=>{
-  console.log(err)
- })
+  get_all_user()
  
  
 }, [])
@@ -66,10 +85,10 @@ for(let i=0; i<users.length; i++)
 }
 console.log("actArr is ", activeArr);
 
-const handleToggle =(e,phnNo)=>
+const handleToggle =(access)=>
 {
-  // activateUser(9681253017);
-  setActive(e.target.checked)
+  access===true ?
+  setActive(false):setActive(true)
 }
 
  
@@ -107,7 +126,7 @@ const handleToggle =(e,phnNo)=>
               
               
           <TableRow
-              key={row.fullName}
+              key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" style={{fontSize:"18px"}} scope="row">
@@ -119,8 +138,15 @@ const handleToggle =(e,phnNo)=>
               <Button variant="contained" href={row.photoIdUrl}>View ID</Button>
               </TableCell>
               <TableCell align="center" style={{fontSize:"18px"}}>
-             <Switch checked={activeArr[i]}
-              onChange={(e)=>{handleToggle(e,row.phoneNo)}}  color="success" />
+                <Button onClick={(e)=>{
+                    handleOpen()
+                    setActive(row.access)
+                    console.log("active", active)
+                    setUsername(row.phoneNo) }}>
+
+             <Switch checked={row.access}
+             color="success" />
+              </Button>
               </TableCell>
             </TableRow>
 )})
@@ -134,6 +160,36 @@ const handleToggle =(e,phnNo)=>
      
   
     <Piecharts/>
+
+
+
+     {/* activity confirmation */}
+   
+
+<Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Are you want to change the access?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color='secondary' variant='contained' onClick={handleClose}>Disagree</Button>
+          <Button color='primary' variant='contained' onClick={()=>{
+active===false ? activateUser(username) : deactivateUser(username) 
+
+            handleClose()
+            get_all_user()
+            }}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+ 
     </div>
   )
 }

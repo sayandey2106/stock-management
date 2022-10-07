@@ -24,7 +24,7 @@ const style = {
   };
 
  
-export default function CreateQualityModal() {
+export default function CreateShopModal() {
   const [profitType, setProfitType] = React.useState('');
   const [qualityName, setQualityName]= React.useState('');
   const [profitValue, setProfitValue] = React.useState(0);
@@ -41,7 +41,7 @@ export default function CreateQualityModal() {
 
   return (
     <div>
-        <Box sx={style} component="form" ml={5} 
+        <Box sx={style} component="form" 
         onSubmit={(e)=>{
         console.log("submit")
       e.preventDefault()

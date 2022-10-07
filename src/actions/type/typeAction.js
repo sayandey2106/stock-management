@@ -69,7 +69,8 @@ body : JSON.stringify(newType)
 });
   const data = await response.json();
   console.log(data);
- data.status===200 ? alert("Type edited successfully"): alert("Something went wrong")
+  alert(data.message)
+//  data.status===200 ? alert("Type edited successfully"): alert("Something went wrong")
   return (data)
 }
 

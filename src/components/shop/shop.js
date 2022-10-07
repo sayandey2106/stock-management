@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, ButtonGroup } from '@mui/material'
 import { Container, Box } from '@mui/system'
 import Table from '@mui/material/Table';
@@ -31,50 +32,62 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import CreateShopModal from '../modals/createShopModal';
+import { getAllshop } from '../../actions/shop/shopAction';
+function createData(name, address, capacity, contactPerson ) {
+    return {name, address, capacity, contactPerson};
+  }
+  
+  const rows = [
+    createData('Frozen yoghurt', "Kurti", 34, 24),
+    createData('Ice cream sandwich', "Blouse", 34, 37),
+    createData('Eclair', "Blouse", 34, 24),
+    createData('Cupcake', "Saree", 34, 67),
+    createData('Gingerbread', "Saree",34, 49),
+  ];
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+export default function Shop()  {
 
-export default function Types() {
-    const [types, setTypes]= useState([])
-    const [typeName, setTypeName]= useState("")
-    const[id, setId] = useState();
-    const get_all_type = ()=>{
-        getAllType().then((res)=>{
+
+    const get_all_shop = ()=>{
+        getAllshop().then((res)=>{
       
-            setTypes(res.data);
-           console.log(types)
+            setShops(res.data);
+           console.log(shops)
            
           }).catch((err)=>{
            console.log(err)
           })
     }
-    
-    
     useEffect(() => {
         
-        get_all_type()
+        get_all_shop()
     
     }, [])
-    
-    
+
+
+    const [typeName, setTypeName]= useState("")
+    const[id, setId] = useState();
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
+    const [shops, setShops] = useState([])
 
     const handleOpen = () => setOpen(true);
     const handleClose = () =>{
 
         setOpen(false);
-        get_all_type();
+
     }
 
     const handleEditOpen = () => setOpenEdit(true);
     const handleEditClose = () =>{
 
         setOpenEdit(false);
-        get_all_type();
+
     }
 
 
@@ -83,79 +96,71 @@ export default function Types() {
     const handleDeleteClose = () =>{
 
         setOpenDelete(false);
-        get_all_type();
+       
     }
 
     const handleDelete = () =>{
-        deleteType(id)
-        get_all_type()
+        
         
     }
-  return (
-    <div>
+    
+    return (
 
 
+      <div>
+       
+     
+          <Container className="my-4">
+  
+        <Box>
 
-{
-    types.length===0 ?
-    <Container>
-    <Skeleton />
-    <Skeleton animation="wave" />
-    <Skeleton animation={false} />
-    </Container> 
-    :
-    <Container>
-
-<Box>
-    <Button variant="contained" className='m-1' onClick={handleOpen}>Create New Type</Button>
-</Box>
-<TableContainer component={Paper} style={{ marginTop: "30px" }}>
-    <Table sx={{ minWidth: 250 }} aria-label="simple table">
-        <TableHead>
-            <TableRow style={{ backgroundColor: "black", color: "white" }}>
-                <TableCell style={{ color: "white", fontSize: "20px" }} align="center">Name</TableCell>
-                <TableCell style={{ color: "white", fontSize: "20px" }} align="center">Quantity</TableCell>
-                <TableCell style={{ color: "white", fontSize: "20px" }} align="center">Action</TableCell>
+    <Button variant="contained" className='m-1' onClick={handleOpen}>Add Shop</Button>
+  
+        </Box>
+        <TableContainer component={Paper} style={{marginTop:"30px"}}>
+        <Table sx={{ minWidth: 250 }} aria-label="simple table">
+          <TableHead>
+            <TableRow style={{backgroundColor:"black", color:"white"}}>
+              <TableCell style={{color:"white",fontSize:"20px"}}>Name</TableCell>
+              <TableCell style={{color:"white",fontSize:"20px"}} align="center">Name</TableCell>
+              <TableCell style={{color:"white",fontSize:"20px"}} align="center">Address</TableCell>
+              <TableCell style={{color:"white",fontSize:"20px"}} align="center">Capacity</TableCell>
+              <TableCell style={{color:"white",fontSize:"20px"}} align="center">Contact Person</TableCell>
+              <TableCell style={{color:"white",fontSize:"20px"}} align="center">Action</TableCell>
+           
             </TableRow>
-          
-            
-        </TableHead>
-        <TableBody>
-            {types.map((row) => (
-                <TableRow
-                    key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                    
-                    <TableCell align="center" style={{ fontSize: "18px" }}>{row.typeName}</TableCell>
-                    <TableCell align="center" style={{ fontSize: "18px" }}>{row.quantity}</TableCell>
-                    <TableCell align="center" style={{ fontSize: "18px" }}>
-                        <IconButton color="primary" aria-label="add to shopping cart" onClick={()=>{handleEditOpen()
-                        setTypeName(row.typeName)
-                        setId(row.id)
-                        }}>
-                            <EditIcon />
-                        </IconButton>
-                        <IconButton aria-label="delete" onClick={()=>{
-                            handleDeleteOpen()
-                            setId(row.id)
-                        
-                        }}>
-                            <DeleteIcon />
-                        </IconButton>
-                    </TableCell>
-                </TableRow>
+          </TableHead>
+          <TableBody>
+            {shops.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" style={{fontSize:"18px"}} scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.name}</TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.address}</TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.capacity}</TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.contactPerson}</TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>
+                <IconButton color="primary" aria-label="add to shopping cart">
+                      <EditIcon />
+                  </IconButton>
+                  <IconButton  aria-label="delete">
+                      <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
             ))}
-        </TableBody>
-    </Table>
-</TableContainer>
-</Container>
-}
+          </TableBody>
+        </Table>
+      </TableContainer>
+          </Container>
+          
 
 
-
-
-        {/* add new type modal */}
+              {/* add new type modal */}
     <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -170,7 +175,7 @@ export default function Types() {
         <Fade in={open}>
           <Box>
 
-            <CreateTypeModal/>
+            <CreateShopModal/>
           </Box>
          
         </Fade>
@@ -200,31 +205,6 @@ export default function Types() {
 
       {/* delete type */}
 
-      {/* <Dialog open={openDelete} maxWidth="sm" fullWidth>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <Box position="absolute" top={0} right={0}>
-        <IconButton>
-          <Close onClick={handleDeleteClose} />
-        </IconButton>
-      </Box>
-      <DialogContent>
-        <Typography>You want to delete this quality?</Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" variant="contained" onClick={handleDeleteClose}>
-          Cancel
-        </Button>
-        <Button color="secondary" variant="contained" onClick={()=>{
-            handleDelete()
-            handleDeleteClose()
-            }}>
-          Confirm
-        </Button>
-      </DialogActions>
-    </Dialog> */}
-
-
-
     <Dialog
         open={openDelete}
         TransitionComponent={Transition}
@@ -246,6 +226,7 @@ export default function Types() {
             }}>Agree</Button>
         </DialogActions>
       </Dialog>
-    </div>
-  )
-}
+      </div>
+    )
+  }
+  

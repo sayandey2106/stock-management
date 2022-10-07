@@ -1,4 +1,4 @@
-import React  from 'react'
+import React, { useState }  from 'react'
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { TextField } from '@material-ui/core';
@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import { addNewQuality } from '../../actions/quality/qualityAction';
-import { addNewType } from '../../actions/type/typeAction';
+import { addNewType, editType } from '../../actions/type/typeAction';
 
 
 const style = {
@@ -25,14 +25,15 @@ const style = {
   };
 
  
-export default function CreateTypeModal() {
+export default function EditTypeModal(props) {
   
-  const [productTypeName, setProductTypeName]= React.useState('');
+  const [productTypeName, setProductTypeName]= React.useState(props.typeName);
+  const[id, setId] = useState(props.id);
   let newType = {productTypeName};
 
  
   const handleSubmit = () =>{
-    addNewType(newType);
+    editType(newType,id);
   }
 
   
@@ -50,7 +51,7 @@ export default function CreateTypeModal() {
 
 
         <Typography m={2} variant="h4" component="h6"> 
-            Create New Type
+            Edit Type
         </Typography>
         <TextField id="standard-basic" label="Quality Name" variant="standard" type="text"
         value={productTypeName}

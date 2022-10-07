@@ -27,15 +27,16 @@ import moment from 'moment';
 import axios from 'axios';
 import { getAllQuality,deleteQuality } from '../../actions/quality/qualityAction';
 import EditQualityModal from '../modals/editQualityModal';
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 
-   
-  } from '@material-ui/core';
-  import { Close } from '@material-ui/icons';
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Quality() {
 
@@ -214,28 +215,28 @@ const [id, setId] = useState();
       </Modal>
 
         {/* delete confirmation */}
-        <Dialog open={openDelete} maxWidth="sm" fullWidth>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <Box position="absolute" top={0} right={0}>
-        <IconButton>
-          <Close onClick={handleCloseDelete} />
-        </IconButton>
-      </Box>
-      <DialogContent>
-        <Typography>You want to delete this quality?</Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" variant="contained" onClick={handleCloseDelete}>
-          Cancel
-        </Button>
-        <Button color="secondary" variant="contained" onClick={()=>{
+     
+<Dialog
+        open={openDelete}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseDelete}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Are you want to delete this quality?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color='secondary' variant='contained' onClick={handleCloseDelete}>Disagree</Button>
+          <Button color='primary' variant='contained' onClick={()=>{
             handleDelete()
             handleCloseDelete()
-            }}>
-          Confirm
-        </Button>
-      </DialogActions>
-    </Dialog>
+            }}>Agree</Button>
+        </DialogActions>
+      </Dialog>
         </div>
     )
 }
