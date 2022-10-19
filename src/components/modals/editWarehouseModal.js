@@ -8,8 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import { addNewQuality } from '../../actions/quality/qualityAction';
-import { addNewShop } from '../../actions/shop/shopAction';
+import { addNewWarehouse, editWarehouse } from '../../actions/warehouse/warehouseAction';
 
 
 const style = {
@@ -25,25 +24,26 @@ const style = {
   };
 
  
-export default function CreateQualityModal() {
-  const [whName, setWhName] = React.useState('');
-  const [whAddress, setWhAddress]= React.useState('');
-  const [whCapacity, setWhCapacity] = React.useState();
-  const [contactPerson, setContactPerson] = React.useState();
+export default function EditWarehouseModal(props) {
+  const [whName, setWhName] = React.useState(props.whName);
+  const [whAddress, setWhAddress]= React.useState(props.whAddress);
+  const [whCapacity, setWhCapacity] = React.useState(props.whCapacity);
+  const [contactPerson, setContactPerson] = React.useState(props.contactPerson);
 
   const handleChange = (event) => {
     // setProfitType(event.target.value);
   };
 
   const handleSubmit = () =>{
-    addNewShop(newShop)
+
     setWhName("")
     setWhAddress("")
     setContactPerson()
     setWhCapacity()
+    editWarehouse(newWarehouse, props.id)
   }
 
-  let newShop = {whName, whAddress, whCapacity, contactPerson};
+  let newWarehouse = {whName, whAddress, whCapacity, contactPerson};
 
   return (
     <div>
@@ -59,7 +59,7 @@ export default function CreateQualityModal() {
         <div className='text-center'>
 
         <Typography m={2} variant="h4" component="h6"> 
-            Create New Shop
+            Edit Warehouse
         </Typography>
         <TextField id="standard-basic" label="Name" variant="standard" type="text"
         value={whName}
@@ -99,3 +99,4 @@ export default function CreateQualityModal() {
     </div>
   )
 }
+

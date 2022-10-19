@@ -6,14 +6,14 @@ import moment from "moment";
 
 
 
-export const  getAllshop = async () =>{
+export const  getAllWarehouse = async () =>{
    
     // const signUpObj = {signup }
     let conId =  Math.random().toString(36).slice(2);
     let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
-    console.warn("calling get all shops");
+    console.warn("calling get all warehouse");
    
- const response = await fetch(`${UNIVERSAL.BASEURL}shop`, {
+ const response = await fetch(`${UNIVERSAL.BASEURL}warehouse`, {
     method :"GET",
   headers : {
     "content-type": "application/json",
@@ -28,21 +28,21 @@ export const  getAllshop = async () =>{
 
     const data = await response.json();
   
-      alert(data.message)
+     
     
    
     return (data)
 }
 
 
-export const  addNewShop = async (newShop) =>{
+export const  addNewWarehouse = async (newWarehouse) =>{
    
     // const signUpObj = {signup }
     let conId =  Math.random().toString(36).slice(2);
     let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
-    console.warn("calling new quality");
+    console.warn("calling new warehouse");
    
- const response = await fetch(`${UNIVERSAL.BASEURL}shop`, {
+ const response = await fetch(`${UNIVERSAL.BASEURL}warehouse`, {
     method :"POST",
   headers : {
     "content-type": "application/json",
@@ -51,7 +51,7 @@ export const  addNewShop = async (newShop) =>{
    "requested-timestamp": date_create,
 "conversation-id": conId,
   },
-body : JSON.stringify(newShop)
+body : JSON.stringify(newWarehouse)
 
  });
 
@@ -64,14 +64,14 @@ body : JSON.stringify(newShop)
 }
 
 
-export const  editShop = async (newShop,id) =>{
+export const  editWarehouse = async (newWarehouse,id) =>{
    
     // const signUpObj = {signup }
     let conId =  Math.random().toString(36).slice(2);
     let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
-    console.warn("calling edit quality");
+    console.warn("calling edit warehouse");
    
-  const response = await fetch(`${UNIVERSAL.BASEURL}quality/${id}`, {
+  const response = await fetch(`${UNIVERSAL.BASEURL}warehouse/${id}`, {
     method :"PUT",
   headers : {
     "content-type": "application/json",
@@ -80,24 +80,24 @@ export const  editShop = async (newShop,id) =>{
    "requested-timestamp": date_create,
   "conversation-id": conId,
   },
-  body : JSON.stringify(newShop)
+  body : JSON.stringify(newWarehouse)
   
   });
     const data = await response.json();
     console.log(data);
-   data.status===200 ? alert("Quality edited successfully"): alert("Something went wrong")
+   data.status===200 ? alert("Warehouse edited successfully"): alert("Something went wrong")
     return (data)
   }
 
 
-export const  deleteShop = async (id) =>{
+export const  deleteWarehouse = async (id) =>{
    
     // const signUpObj = {signup }
     let conId =  Math.random().toString(36).slice(2);
     let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
     console.warn("calling delete quality");
    
-  const response = await fetch(`${UNIVERSAL.BASEURL}shop/${id}`, {
+  const response = await fetch(`${UNIVERSAL.BASEURL}warehouse/${id}`, {
     method :"DELETE",
   headers : {
     "content-type": "application/json",

@@ -8,8 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import { addNewQuality } from '../../actions/quality/qualityAction';
-import { addNewShop } from '../../actions/shop/shopAction';
+import { addNewWarehouse } from '../../actions/warehouse/warehouseAction';
 
 
 const style = {
@@ -25,7 +24,7 @@ const style = {
   };
 
  
-export default function CreateQualityModal() {
+export default function CreateWarehouseModal() {
   const [whName, setWhName] = React.useState('');
   const [whAddress, setWhAddress]= React.useState('');
   const [whCapacity, setWhCapacity] = React.useState();
@@ -36,14 +35,14 @@ export default function CreateQualityModal() {
   };
 
   const handleSubmit = () =>{
-    addNewShop(newShop)
+    addNewWarehouse(newWarehouse)
     setWhName("")
     setWhAddress("")
     setContactPerson()
     setWhCapacity()
   }
 
-  let newShop = {whName, whAddress, whCapacity, contactPerson};
+  let newWarehouse = {whName, whAddress, whCapacity, contactPerson};
 
   return (
     <div>
@@ -59,7 +58,7 @@ export default function CreateQualityModal() {
         <div className='text-center'>
 
         <Typography m={2} variant="h4" component="h6"> 
-            Create New Shop
+            Create New Warehouse
         </Typography>
         <TextField id="standard-basic" label="Name" variant="standard" type="text"
         value={whName}
@@ -99,3 +98,4 @@ export default function CreateQualityModal() {
     </div>
   )
 }
+
