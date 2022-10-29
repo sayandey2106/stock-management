@@ -40,7 +40,7 @@ export const  addNewShop = async (newShop) =>{
     // const signUpObj = {signup }
     let conId =  Math.random().toString(36).slice(2);
     let date_create= moment().format("YYYY-MM-DD hh:mm:ss").toString();
-    console.warn("calling new quality");
+    console.warn("calling new shop", newShop);
    
  const response = await fetch(`${UNIVERSAL.BASEURL}shop`, {
     method :"POST",

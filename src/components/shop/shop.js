@@ -34,6 +34,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import CreateShopModal from '../modals/createShopModal';
 import { getAllshop } from '../../actions/shop/shopAction';
+import { EditOffSharp } from '@mui/icons-material';
+import EditShopModal from '../modals/editShopModal';
 function createData(name, address, capacity, contactPerson ) {
     return {name, address, capacity, contactPerson};
   }
@@ -78,7 +80,7 @@ export default function Shop()  {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () =>{
-
+      get_all_shop()
         setOpen(false);
 
     }
@@ -121,7 +123,7 @@ export default function Shop()  {
         <Table sx={{ minWidth: 250 }} aria-label="simple table">
           <TableHead>
             <TableRow style={{backgroundColor:"black", color:"white"}}>
-              <TableCell style={{color:"white",fontSize:"20px"}}>Name</TableCell>
+              
               <TableCell style={{color:"white",fontSize:"20px"}} align="center">Name</TableCell>
               <TableCell style={{color:"white",fontSize:"20px"}} align="center">Address</TableCell>
               <TableCell style={{color:"white",fontSize:"20px"}} align="center">Capacity</TableCell>
@@ -133,15 +135,15 @@ export default function Shop()  {
           <TableBody>
             {shops.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" style={{fontSize:"18px"}} scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center" style={{fontSize:"18px"}}>{row.name}</TableCell>
-                <TableCell align="center" style={{fontSize:"18px"}}>{row.address}</TableCell>
-                <TableCell align="center" style={{fontSize:"18px"}}>{row.capacity}</TableCell>
+                {/* <TableCell component="th" style={{fontSize:"18px"}} scope="row">
+                  {row.id}
+                </TableCell> */}
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.shName}</TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.shAddress}</TableCell>
+                <TableCell align="center" style={{fontSize:"18px"}}>{row.shCapacity}</TableCell>
                 <TableCell align="center" style={{fontSize:"18px"}}>{row.contactPerson}</TableCell>
                 <TableCell align="center" style={{fontSize:"18px"}}>
                 <IconButton color="primary" aria-label="add to shopping cart">
@@ -196,7 +198,7 @@ export default function Shop()  {
         <Fade in={openEdit}>
           <Box>
 
-            <EditTypeModal typeName={typeName} id={id} />
+            <EditShopModal typeName={typeName} id={id} />
           </Box>
          
         </Fade>

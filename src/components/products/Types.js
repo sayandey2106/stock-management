@@ -200,31 +200,6 @@ export default function Types() {
 
       {/* delete type */}
 
-      {/* <Dialog open={openDelete} maxWidth="sm" fullWidth>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <Box position="absolute" top={0} right={0}>
-        <IconButton>
-          <Close onClick={handleDeleteClose} />
-        </IconButton>
-      </Box>
-      <DialogContent>
-        <Typography>You want to delete this quality?</Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" variant="contained" onClick={handleDeleteClose}>
-          Cancel
-        </Button>
-        <Button color="secondary" variant="contained" onClick={()=>{
-            handleDelete()
-            handleDeleteClose()
-            }}>
-          Confirm
-        </Button>
-      </DialogActions>
-    </Dialog> */}
-
-
-
     <Dialog
         open={openDelete}
         TransitionComponent={Transition}

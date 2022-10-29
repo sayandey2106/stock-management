@@ -28,7 +28,7 @@ const style = {
   };
 
  
-export default function CreateShopModal() {
+export default function EditShopModal() {
   const [shName, setShName] = React.useState('');
   const [shAddress, setShAddress]= React.useState('');
   const [shCapacity, setShCapacity] = React.useState();
